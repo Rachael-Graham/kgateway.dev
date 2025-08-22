@@ -17,7 +17,7 @@ kind create cluster
 
 ## Install
 
-The following steps get you started with a basic installation. For instructions, see the [installation guide](/docs/operations/install).
+The following steps get you started with a basic installation. For instructions, see the [installation guide](../operations/install).
 
 {{< reuse "docs/snippets/get-started.md" >}}
 

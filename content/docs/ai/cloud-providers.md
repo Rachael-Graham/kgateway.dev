@@ -28,6 +28,7 @@ OpenAI is the most common LLM provider, and the examples throughout the AI Gatew
 
 To set up OpenAI, continue with the [Authenticate to the LLM](/docs/ai/auth/) guide.
 
+## Gemini {#google}
 
 1. Save your Gemini API key as an environment variable. To retrieve your API key, [log in to the Google AI Studio and select **API Keys**](https://aistudio.google.com/app/apikey).
 

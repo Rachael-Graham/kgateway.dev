@@ -1,28 +1,10 @@
----
-title: Anthropic
-weight: 70
-description:
----
-
-Configure Microsoft Anthropic as an LLM provider in agentgateway.
-
-## Before you begin
-
-{{< reuse "docs/snippets/agentgateway-prereq.md" >}}
-
-## Set up an agentgateway proxy
-
-{{< reuse "docs/snippets/agentgateway-setup.md" >}}
-
-## Set up access to Anthropic
-
-1. Save your Anthropic API key as an environment variable. To retrieve your API key, [log in to the Google AI Studio and select **API Keys**](https://aistudio.google.com/app/apikey).
+1. Save your Gemini API key as an environment variable. To retrieve your API key, [log in to the Google AI Studio and select **API Keys**](https://aistudio.google.com/app/apikey).
 
    ```bash
    export GOOGLE_KEY=<your-api-key>
    ```
 
-2. Create a secret to authenticate to Google. For other ways to authenticate, see the [Auth guide](../auth/).
+2. Create a secret to authenticate to Google. 
 
    ```yaml
    kubectl apply -f - <<EOF
@@ -53,13 +35,13 @@ Configure Microsoft Anthropic as an LLM provider in agentgateway.
    spec:
      ai:
        llm:
-         gemini:
-           apiVersion: v1beta
-           authToken:
-             kind: SecretRef
-             secretRef:
-               name: google-secret
-           model: gemini-1.5-flash-latest
+        gemini:
+             apiVersion: v1beta
+             authToken:
+               kind: SecretRef
+               secretRef:
+                 name: google-secret
+             model: gemini-1.5-flash-latest
      type: AI
    EOF
    ```
@@ -73,7 +55,7 @@ Configure Microsoft Anthropic as an LLM provider in agentgateway.
    | `authToken`  | The authentication token to use to authenticate to the LLM provider. The example refers to the secret that you created in the previous step.                                                                                                                                                                          |
    | `model`      | The model to use to generate responses. In this example, you use the `gemini-1.5-flash-latest` model. For more models, see the [Google AI docs](https://ai.google.dev/gemini-api/docs/models).                                                                                                                        |
 
-4. Create an HTTPRoute resource to route requests to the Gemini backend. Note that kgateway automatically rewrites the endpoint that you set up (such as `/gemini`) to the appropriate chat completion endpoint of the LLM provider for you, based on the LLM provider that you set up in the Backend resource.
+4. Create an HTTPRoute resource to route requests to the Gemini backend. Note that {{< reuse "/docs/snippets/kgateway.md" >}} automatically rewrites the endpoint that you set up (such as `/gemini`) to the appropriate chat completion endpoint of the LLM provider for you, based on the LLM provider that you set up in the Backend resource.
 
    ```yaml
    kubectl apply -f- <<EOF

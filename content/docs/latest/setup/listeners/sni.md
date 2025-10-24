@@ -108,7 +108,7 @@ When generating your Envoy certificates, make sure to use encryption algorithms 
 
 Set up an SNI Gateway that serves multiple hosts on the same port. 
 
-If you plan to set up your listener as part of a ListenerSet, keep the following considerations in mind. For more information, see [ListenerSets (experimental)](/docs/setup/listeners/overview/#listenersets).
+If you plan to set up your listener as part of a ListenerSet, keep the following considerations in mind. For more information, see [ListenerSets (experimental)]({{< link-hextra path="/setup/listeners/overview/#listenersets" >}}).
 * {{< reuse "docs/versions/warn-2-1-only.md" >}} 
 * You must install the experimental channel of the Kubernetes Gateway API at version 1.3 or later.
 
@@ -264,8 +264,7 @@ If you plan to set up your listener as part of a ListenerSet, keep the following
    kind: HTTPRoute
    metadata:
      name: httpbin-https
-     namespace: httpbin
-       gateway: sni
+     namespace: httpbin       
    spec:
      parentRefs:
        - name: sni
@@ -289,7 +288,6 @@ If you plan to set up your listener as part of a ListenerSet, keep the following
    metadata:
      name: httpbin-https
      namespace: httpbin
-       gateway: sni
    spec:
      parentRefs:
        - name: sni-listenerset

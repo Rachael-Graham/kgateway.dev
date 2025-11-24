@@ -8,7 +8,7 @@
    {{% /tab %}}
    {{% tab tabName="Experimental" %}}
    ```sh
-   kubectl apply {{< version include-if="2.2.x,2.1.x" >}}--server-side {{< /version >}}-f https://github.com/kubernetes-sigs/gateway-api/releases/download/v{{< reuse "docs/versions/k8s-gw-version.md" >}}/experimental-install.yaml
+   kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v{{< reuse "docs/versions/k8s-gw-version.md" >}}/experimental-install.yaml
    ```  
    {{% /tab %}}
    {{< /tabs >}}
@@ -27,21 +27,41 @@
    ```
    {{< /version >}}
 
-3. Install kgateway by using Helm. {{< version include-if="2.2.x,2.1.x" >}}Choose the [data plane gateway proxy]({{< link-hextra path="/about/proxies#supported" >}}) that you want to use, such as kgateway for API ingress or agentgateway for AI use cases.{{< /version >}}
-   {{< version include-if="2.2.x,2.1.x" >}}
+3. Install kgateway by using Helm. {{< version include-if="2.2.x,2.1.x" >}}Choose the [data plane gateway proxy]({{< link-hextra path="/about/proxies#supported" >}}) that you want to use, such as kgateway for API ingress or agentgateway for AI use cases.{{< /version >}} {{< version include-if="2.2.x" >}} To use experimental Gateway API features, include the experimental feature gate, `--set controller.extraEnv.KGW_ENABLE_GATEWAY_API_EXPERIMENTAL_FEATURES=true`.{{< /version >}}
+   {{< version include-if="2.1.x" >}}
    {{< tabs items="Kgateway, Agentgateway" tabTotal="2">}}
    {{% tab tabName="Kgateway" %}}
    ```sh
-   helm upgrade -i --namespace kgateway-system --version v{{< reuse "docs/versions/patch-dev.md" >}} \
+   helm upgrade -i --namespace kgateway-system --version v{{< reuse "docs/versions/n-patch.md" >}} \
    kgateway oci://cr.kgateway.dev/kgateway-dev/charts/kgateway \
    --set controller.image.pullPolicy=Always
    ```
    {{% /tab %}}
    {{% tab tabName="Agentgateway" %}}
    ```sh
-   helm upgrade -i --namespace kgateway-system --version v{{< reuse "docs/versions/patch-dev.md" >}} kgateway oci://cr.kgateway.dev/kgateway-dev/charts/kgateway \
+   helm upgrade -i --namespace kgateway-system --version v{{< reuse "docs/versions/n-patch.md" >}} kgateway oci://cr.kgateway.dev/kgateway-dev/charts/kgateway \
      --set agentgateway.enabled=true  \
      --set controller.image.pullPolicy=Always
+   ```
+   {{% /tab %}}
+   {{< /tabs >}}
+   {{< /version >}}
+   {{< version include-if="2.2.x" >}}
+   {{< tabs items="Kgateway, Agentgateway" tabTotal="2">}}
+   {{% tab tabName="Kgateway" %}}
+   ```sh
+   helm upgrade -i --namespace kgateway-system --version v{{< reuse "docs/versions/patch-dev.md" >}} \
+   kgateway oci://cr.kgateway.dev/kgateway-dev/charts/kgateway \
+   --set controller.image.pullPolicy=Always \
+   --set controller.extraEnv.KGW_ENABLE_GATEWAY_API_EXPERIMENTAL_FEATURES=true
+   ```
+   {{% /tab %}}
+   {{% tab tabName="Agentgateway" %}}
+   ```sh
+   helm upgrade -i --namespace kgateway-system --version v{{< reuse "docs/versions/patch-dev.md" >}} kgateway oci://cr.kgateway.dev/kgateway-dev/charts/kgateway \
+     --set agentgateway.enabled=true  \
+     --set controller.image.pullPolicy=Always \
+     --set controller.extraEnv.KGW_ENABLE_GATEWAY_API_EXPERIMENTAL_FEATURES=true
    ```
    {{% /tab %}}
    {{< /tabs >}}

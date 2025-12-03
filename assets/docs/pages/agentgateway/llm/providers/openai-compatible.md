@@ -43,7 +43,7 @@ Set up OpenAI-compatible provider access to [Mistral AI](https://mistral.ai/) mo
      Authorization: $MISTRAL_API_KEY
    EOF
    ```
-   
+
 4. Create a Backend resource using the `openai` provider type with custom host and port overrides.
    
    ```yaml
@@ -113,7 +113,6 @@ Set up OpenAI-compatible provider access to [Mistral AI](https://mistral.ai/) mo
          kind: Backend
    EOF
    ```
-
 6. Create a BackendTLSPolicy to enable TLS for the external Mistral API.
 
    ```yaml
@@ -141,7 +140,6 @@ Set up OpenAI-compatible provider access to [Mistral AI](https://mistral.ai/) mo
    | `targetRefs`               | References the Backend resource to apply TLS to. |
    | `validation.hostname`       | The hostname to validate in the server certificate (must match the `host` value in your Backend, e.g., `api.mistral.ai`). |
    | `validation.wellKnownCACertificates` | Use the system's trusted CA certificates to verify the server certificate. |
-
 7. Send a request to the LLM provider API. Verify that the request succeeds and that you get back a response from the chat completion API.
    
    {{< tabs tabTotal="2" items="Cloud Provider LoadBalancer,Port-forward for local testing" >}}
@@ -183,27 +181,29 @@ Set up OpenAI-compatible provider access to [Mistral AI](https://mistral.ai/) mo
    Example output: 
    ```json
    {
-     "id": "chatcmpl-deepseek-12345",
-     "object": "chat.completion",
-     "created": 1727967462,
-     "model": "deepseek-chat",
+     "model": "mistral-medium-2505",
+     "usage": {
+       "prompt_tokens": 20,
+       "completion_tokens": 18,
+       "total_tokens": 38
+     },
      "choices": [
        {
-         "index": 0,
          "message": {
+           "content": "Silent circuits hum,\nLearning echoes through the void,\nWisdom without warmth.",
            "role": "assistant",
-           "content": "Neural networks learn,\nPatterns emerge from data streams,\nMind in silicon grows."
+           "tool_calls": null
          },
+         "index": 0,
          "finish_reason": "stop"
        }
      ],
-     "usage": {
-       "prompt_tokens": 20,
-       "completion_tokens": 17,
-       "total_tokens": 37
-     }
+     "id": "d05ef3973085435a8db8b51b580eeef8",
+     "created": 1764614501,
+     "object": "chat.completion"
    }
    ```
+ 
 
 ### DeepSeek example {#deepseek}
 
